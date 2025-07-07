@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Opportunity: Premium Cottage Rentals in Tbilisi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc) with a Teal Accent -->
+    <!-- Application Structure Plan: A single-page narrative application designed to guide investors logically through the pitch. It starts with a high-impact hero section with key metrics. A sticky navigation bar allows users to jump to specific sections: The Opportunity, The Project, The Financials, and Risks. Each section uses a combination of summary text, interactive cards, and dynamic charts (using Chart.js) to make the data compelling and easy to understand. This structure transforms the static report into an engaging dashboard, facilitating both a quick overview and a detailed analysis. -->
+    <!-- Visualization & Content Choices: 
+        - Goal: Inform/Compare (Market ADR vs. Project ADR) -> Viz: Bar Chart -> Interaction: Hover tooltips -> Justification: Visually demonstrates the superior revenue potential of the project over average market offerings.
+        - Goal: Inform/Proportions (Investment Allocation) -> Viz: Donut Chart -> Interaction: Hover tooltips -> Justification: Clearly and transparently shows how the investment funds will be utilized.
+        - Goal: Compare/Inform (Revenue vs. Expenses) -> Viz: Bar Chart -> Interaction: Hover tooltips -> Justification: Provides a clear visual breakdown of profitability by comparing projected income against expenses.
+        - Goal: Organize/Inform (Project Features & Risks) -> Viz: Styled HTML/Tailwind cards -> Interaction: None -> Justification: Presents key features and risk mitigation strategies in a clean, digestible format without cluttering the UI.
+        - Library: Chart.js for all visualizations, rendered on <canvas>.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0d9488; /* teal-600 */
+            border-bottom-color: #0d9488;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-slate-900">
+                Project Vazisubani
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#opportunity" class="nav-link font-medium text-slate-600 pb-1">The Opportunity</a>
+                <a href="#project" class="nav-link font-medium text-slate-600 pb-1">The Project</a>
+                <a href="#financials" class="nav-link font-medium text-slate-600 pb-1">Financials</a>
+                <a href="#risks" class="nav-link font-medium text-slate-600 pb-1">Risks</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-block bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">Invest Now</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-slate-100 py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-4">Invest in Tbilisi's Premium Rental Future</h1>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8">A unique opportunity to fund the development of three exclusive rental cottages with premium amenities on a privately-owned plot, tapping into a high-demand, underserved market niche.</p>
+                <div class="flex justify-center flex-wrap gap-6 md:gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-left w-64">
+                        <div class="text-sm font-semibold text-teal-600">Seeking Loan</div>
+                        <div id="loanAmount" class="text-4xl font-bold text-slate-900">$100,000</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-left w-64">
+                        <div class="text-sm font-semibold text-teal-600">Projected Annual Revenue</div>
+                        <div id="annualRevenue" class="text-4xl font-bold text-slate-900">$71,175</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-left w-64">
+                        <div class="text-sm font-semibold text-teal-600">Key Advantage</div>
+                        <div class="text-4xl font-bold text-slate-900">Zero Land Cost</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="opportunity" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Why Tbilisi? Why Now?</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The market is ripe for a high-quality rental project that moves beyond standard apartments.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Market Growth</h3>
+                        <p class="text-slate-600">Tbilisi's real estate market hit a historic **$4.3 billion in 2024**, showing robust post-pandemic recovery and strong investor confidence.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Thriving Tourism</h3>
+                        <p class="text-slate-600">**Over 90% of Airbnb guests are foreign tourists**, a massive, consistent demand pool for quality short-term rentals.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Digital Nomad Hub</h3>
+                        <p class="text-slate-600">A growing magnet for remote workers who seek longer stays and comfortable, well-equipped living spaces, perfect for our cottage concept.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Underserved Niche</h3>
+                        <p class="text-slate-600">There is clear market demand for private, spacious accommodations with outdoor amenities, a segment standard apartments cannot fill.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-center mb-1 text-slate-900">Superior Revenue Potential</h3>
+                    <p class="text-center text-slate-600 mb-6">Our projected Average Daily Rate (ADR) significantly outperforms the typical market, highlighting the project's premium positioning.</p>
+                    <div class="chart-container">
+                        <canvas id="adrChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="project" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">A Unique Value Proposition</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">This project is designed from the ground up to offer an unmatched guest experience, driving high occupancy and premium rates.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">🏡</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Three Private Cottages</h3>
+                        <p class="text-slate-600">Three fully-equipped 1-bedroom cottages offering modern comfort, privacy, and personal yard space.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">🏊‍♂️</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Shared Swimming Pool</h3>
+                        <p class="text-slate-600">A key differentiator and major draw during Tbilisi's hot summers, ensuring high demand and guest satisfaction.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">🍖</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Grill & Entertainment</h3>
+                        <p class="text-slate-600">A dedicated grill area, plus table tennis and billiards, creates a social, resort-like atmosphere.</p>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">🌳</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Zero Land Cost</h3>
+                        <p class="text-slate-600">The project is built on my privately-owned 1200m² plot, eliminating a major expense and maximizing ROI.</p>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">📍</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Prime Quiet Location</h3>
+                        <p class="text-slate-600">Nestled in Vazisubani's tranquil, residential area, offering an authentic retreat from city bustle.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-4xl mb-4">🏆</div>
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Competitive Edge</h3>
+                        <p class="text-slate-600">This all-in-one offering is rare in Tbilisi, creating a defensible market position against standard rentals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Strong Financial Viability</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The numbers paint a clear picture of profitability, robust returns, and secure loan repayment.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                         <h3 class="text-2xl font-bold text-center mb-1 text-slate-900">Investment Allocation</h3>
+                         <p class="text-center text-slate-600 mb-6">Strategic use of the total capital ($115,000) to maximize property value and guest appeal.</p>
+                         <div class="chart-container h-[300px] md:h-[350px]">
+                            <canvas id="allocationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-center mb-1 text-slate-900">Clear Profitability</h3>
+                        <p class="text-center text-slate-600 mb-6">Projected monthly income comfortably covers all operational costs and debt service.</p>
+                        <div class="chart-container h-[300px] md:h-[350px]">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 bg-teal-600 text-white p-8 rounded-xl shadow-lg flex flex-wrap justify-around items-center text-center">
+                    <div>
+                        <div class="text-lg opacity-80">Projected Monthly NOI</div>
+                        <div class="text-4xl font-bold">$2,999</div>
+                    </div>
+                    <div class="text-2xl font-light opacity-50 my-4 lg:my-0">&gt;</div>
+                    <div>
+                        <div class="text-lg opacity-80">Monthly Loan Payment</div>
+                        <div class="text-4xl font-bold">$1,266</div>
+                    </div>
+                    <div class="mt-6 w-full text-center lg:mt-0 lg:w-auto lg:ml-8">
+                         <div class="text-lg bg-white text-teal-700 font-bold py-2 px-4 rounded-lg">Healthy Coverage</div>
+                    </div>
+                </div>
+                 <p class="text-center text-sm text-slate-500 mt-6 max-w-2xl mx-auto">An 18% VAT applies if annual revenue exceeds 100,000 GEL. We will consult with tax professionals to ensure full compliance and optimal business structure.</p>
+            </div>
+        </section>
+
+        <section id="risks" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Risk Mitigation Strategy</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">We have identified potential risks and implemented clear strategies to mitigate them.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Land Ownership</h3>
+                        <p class="text-slate-600">Eliminates land acquisition risk and associated costs, a major de-risking factor from day one.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Diversified Demand</h3>
+                        <p class="text-slate-600">Appeals to both short-stay tourists and long-stay digital nomads, ensuring stable demand year-round.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Premium Quality</h3>
+                        <p class="text-slate-600">Investment in high-quality construction and amenities ensures durability and commands premium reviews.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">Contingency & Management</h3>
+                        <p class="text-slate-600">A contingency budget is allocated for unforeseen costs, with professional management ensuring operational excellence.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Ready to Build the Future?</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto mb-8">This project represents a sound and profitable investment. I am eager to discuss the detailed business plan and how your investment can unlock this significant opportunity.</p>
+                <a href="mailto:invest@projectvazisubani.com" class="bg-teal-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-teal-700 transition-colors">Contact Me to Invest</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center text-slate-400">
+            <p>&copy; 2025 Project Vazisubani. All rights reserved.</p>
+            <p class="text-sm mt-2">This document is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = {
+                financials: {
+                    loan: 100000,
+                    cash: 15000,
+                    get totalInvestment() { return this.loan + this.cash; },
+                    adr: {
+                        market_low: 38,
+                        market_high: 51,
+                        projected: 100
+                    },
+                    occupancy: 0.65,
+                    get grossAnnualRevenue() { return this.adr.projected * 3 * 365 * this.occupancy; },
+                    expenses: {
+                        management: 0.20,
+                        utilities: 500,
+                        cleaning: 650,
+                        maintenance: 300,
+                        tax: 0.05
+                    },
+                    loanDetails: {
+                        payment: 1266,
+                    },
+                    investmentAllocation: {
+                        'Cottage Construction & Finishing': 50,
+                        'Pool & Site Prep': 25,
+                        'Furnishing & Appliances': 15,
+                        'Landscaping & Amenities': 5,
+                        'Contingency Fund': 5
+                    }
+                }
+            };
+            
+            const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(value);
+
+            document.getElementById('loanAmount').textContent = formatCurrency(data.financials.loan);
+            document.getElementById('annualRevenue').textContent = formatCurrency(data.financials.grossAnnualRevenue);
+
+            function createAdrChart() {
+                const ctx = document.getElementById('adrChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Typical Market ADR', 'Project Vazisubani ADR'],
+                        datasets: [{
+                            label: 'Average Daily Rate ($)',
+                            data: [data.financials.adr.market_high, data.financials.adr.projected],
+                            backgroundColor: ['#64748b', '#0d9488'],
+                            borderColor: ['#475569', '#0f766e'],
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.parsed.y !== null) {
+                                            label += formatCurrency(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createAllocationChart() {
+                const ctx = document.getElementById('allocationChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(data.financials.investmentAllocation),
+                        datasets: [{
+                            label: 'Investment Allocation',
+                            data: Object.values(data.financials.investmentAllocation),
+                            backgroundColor: ['#0d9488', '#14b8a6', '#5eead4', '#99f6e4', '#ccfbf1'],
+                            borderColor: '#f8fafc',
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) { label += ': '; }
+                                        let value = context.parsed;
+                                        if (value !== null) {
+                                            label += value + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function createRevenueChart() {
+                const monthlyGross = data.financials.grossAnnualRevenue / 12;
+                const mgmtCost = monthlyGross * data.financials.expenses.management;
+                const taxCost = monthlyGross * data.financials.expenses.tax;
+                const otherCosts = data.financials.expenses.utilities + data.financials.expenses.cleaning + data.financials.expenses.maintenance;
+                const totalExpenses = mgmtCost + taxCost + otherCosts;
+                const noi = monthlyGross - totalExpenses;
+                
+                const ctx = document.getElementById('revenueChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Monthly Projections'],
+                        datasets: [
+                        {
+                            label: 'Net Operating Income',
+                            data: [noi],
+                            backgroundColor: '#0d9488',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Operating Expenses',
+                            data: [totalExpenses],
+                            backgroundColor: '#f43f5e',
+                             borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Loan Payment',
+                            data: [data.financials.loanDetails.payment],
+                            backgroundColor: '#64748b',
+                             borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                         indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    }
+                                }
+                            },
+                            y: {
+                                stacked: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            createAdrChart();
+            createAllocationChart();
+            createRevenueChart();
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+            const headerHeight = document.getElementById('header').offsetHeight;
+
+            const observerOptions = {
+                root: null,
+                rootMargin: `-${headerHeight}px 0px 0px 0px`,
+                threshold: 0.4
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
